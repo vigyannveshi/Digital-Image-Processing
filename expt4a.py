@@ -162,8 +162,9 @@ plt.show()
 
 
 # Applying the Nearest Neighbourhood algorithm on actual images:
-zimg=dip.nearest_neighbourhood(img2,(2000,3000,3))
-simg=dip.nearest_neighbourhood(img2,(200,300,3))
+r,c=img2.shape[0:2]
+zimg=dip.nearest_neighbourhood(img2,(int(r*1.5),int(c*1.5),3))
+simg=dip.nearest_neighbourhood(img2,(int(r/2),int(c/2),3))
 
 ### Displaying Images
 plt.figure(6)
@@ -179,6 +180,6 @@ io.imshow(simg)
 plt.show()
 
 ### Saving Output Images
-io.imsave('input_output\expt4a_original_img_1795_2666.jpg',img2)
-io.imsave('input_output\expt4a_shrinked_img_200_300.jpg',simg)
-io.imsave('input_output\expt4a_zoomed_img_2000_3000.jpg',zimg)
+io.imsave(f'input_output\expt4a_original_img_{c}_{r}.jpg',img2)
+io.imsave(f'input_output\expt4a_shrinked_img_{int(c/2)}_{int(r/2)}.jpg',simg)
+io.imsave(f'input_output\expt4a_zoomed_img_{int(c*1.5)}_{int(r*1.5)}.jpg',zimg)
