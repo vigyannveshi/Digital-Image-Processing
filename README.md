@@ -1,6 +1,6 @@
 # **Digital Image Processing** 
 
-<img src="featured_img.png">
+<img src="featured_img.png ">
 
 ## Acknowledgements
 
