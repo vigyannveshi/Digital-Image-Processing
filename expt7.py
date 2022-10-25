@@ -99,7 +99,7 @@ ax18.imshow(sh_img,cmap='gray')
 plt.suptitle('Geometric Spatial Transformation',font='Times New Roman',fontweight="bold",fontsize=16)
 plt.tight_layout(pad=2.5)
 fig1.set_size_inches(13, 8)
-plt.savefig('input_output/expt7a.jpg',dpi=500)
+plt.savefig('input_output/expt7_1.jpg',dpi=500)
 plt.show()
 
 
@@ -118,5 +118,5 @@ ax22.imshow(combo_img,cmap='gray')
 
 plt.suptitle('Combination of Geometric Spatial transformations on image',font='Times New Roman',fontweight="bold",fontsize=16)
 plt.tight_layout(pad=2.5)
-plt.savefig('input_output/expt7b.jpg',dpi=500)
+plt.savefig('input_output/expt7_2.jpg',dpi=500)
 plt.show()
