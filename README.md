@@ -15,11 +15,10 @@
 ## Disclaimer
 
 ---
-
-The repository is created for learning purposes and to share the things that may help DIP enthusiast in their journey. Updation of the repository to my best possible efforts will be a priority. All programs have been written in python and most of the them have been implemented from scratch to learn the nitti grittis using basic libraries like numpy and matplotlib. The programs which couldn't been dived deep have been implemented using existing functions from available image processing libraries like openCV, skimage etc. Please feel free to share and comment, as it will help to improve it even further. Incase of queries or doubts please contact: **mailtovigyannveshi@gmail.com**
-
-The experiments have been written as separate python files. Images used in the experiments are taken from reference: https://www.imageprocessingplace.com/DIP-3E/dip3e_book_images_downloads.htm and are used only for study purposes.
-They are arranged  chapterwise in their respective folders.  All extra images used have been stored in the folder: **extra_images**, the input given and output generated are stored in folder: **input_output**, for easy and repetitive access, some of the functions have been combined into a class **DipTools**, in file **dip_toolbox.py**. 
+The repository is created to share the concepts that I have been fortunate to learn in the Digital Image Processing course. I hope it  helps DIP enthusiasts in their journey. All programs have been written in python. The experiments are implementations of concepts. Most of the concepts have been tried to be implemented from scratch to understand the underlying nitti-grittis and have been combined into classes for better code organization and access. Rest of them have been inherited from existing image processing libraries in python to avoid reinventing the wheel unnecessarily. Images used in the experiments are taken from reference:https://www.imageprocessingplace.com/DIP-3E/dip3e_book_images_downloads.htm
+and are used only for study purposes.
+They are arranged  chapterwise in their respective folders.  All extra images used have been stored in the folder: **extra_images**, the input given and output generated are stored in folder: **input_output**, the concept related functions that have been created from scratch have been saved into their respective classes into folder: **important_classes**, and for easy access in programs have been imported into common file **dip_toolbox.py**. 
+Everytime the repository being updated can be tracked using the featured image which depicts the **input_output** folder
 
 ## Experiments Done:
 ---
@@ -40,4 +39,4 @@ They are arranged  chapterwise in their respective folders.  All extra images us
 | 6.             | Point and Neighbourhood Operations in Digital Image Processing                              |
 |                | a) Intensity Transformation to obtain the negative of an 8-bit image using Point Processing |
 |                |  b) Local Blurring using Neighbourhood Processing
-
+| 7.             | Geometric Spatial Transformation in Digital Image Processing                                |

@@ -19,7 +19,7 @@ def neg_img(img1):
     white_img=np.uint8(np.ones(img1.shape)*255)
     return white_img-img1
 
-# Plotting:
+# plots:
 fig1=plt.figure(1)
 gs1=gs.GridSpec(1,2)
 ax11=plt.subplot(gs1[0,0])

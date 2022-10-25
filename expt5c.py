@@ -23,9 +23,9 @@ for i in range(r):
         diff_param=img3[i][j]/255
         if diff_param>=0.05 and diff_param<=0.1: 
             img4[i][j]=diff_param*10
-        if diff_param>0.1 and diff_param<0.82:
+        elif diff_param>0.1 and diff_param<0.82:
             img4[i][j]=100    
-        elif diff_param>=.90 and diff_param<=0.99:
+        elif diff_param>=.82 and diff_param<=0.99:
             img4[i][j]=diff_param*10
         else:  
             img4[i][j]=75

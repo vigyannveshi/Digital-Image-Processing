@@ -19,7 +19,6 @@ v   :variance
 
 '''
 # Important imports:
-from dip_toolbox import DipTools
 from matplotlib import pyplot as plt, gridspec as gs
 import numpy as np
 
@@ -34,7 +33,7 @@ img1=plt.imread('CH02\Fig0226(galaxy_pair_original).tif')
 
 def gen_noisy_img(img,n,variance):
     noisy_img_list=[]
-    for i in range(n):
+    for _ in range(n):
         noisy_img=np.random.normal(0,variance,img.shape)
         noisy_img_list.append(img+noisy_img)
     return noisy_img_list

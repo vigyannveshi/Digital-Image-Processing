@@ -5,24 +5,24 @@ Title: Bit Plane Slicing
 
 Aim: To write a program using Python to perform bit plane slicing to visualize False Contouring
 
+Note: For the program of bitplane slicing, refer diptools.py
+
 '''
 
 from matplotlib import pyplot as plt, gridspec as gs
-import numpy as np
+from dip_toolbox import IntensityTransformations
 
-
+# importing image
 img1=plt.imread('CH02\Fig0221(a)(ctskull-256).tif')
 
-img_bps_lst=[]
 
-for i in range(img1.shape[0]):
-    for j in range(img1.shape[1]):
-        img_bps_lst.append(np.binary_repr(img1[i][j],width=8))
+# creating object of class IntensityTransformations
+it=IntensityTransformations()
+
 
 # Getting image in each bit plane:
-img_bps=[]
-for j in range(0,8):
-    img_bps.append((np.array([int(i[7-j]) for i in img_bps_lst],dtype=np.uint8)*(2**j)).reshape(img1.shape[0],img1.shape[1]))
+img_bps=it.bit_plane_slicing(img1)
+
 
 # Displaying single bit images:
 fig1=plt.figure(1)

@@ -16,11 +16,11 @@ vi) View a partial image as a 2-D array of stored intensity levels.
 '''
 # Important Imports
 import numpy as np
-from matplotlib import pyplot as plt,image as mpimg
+from matplotlib import pyplot as plt
 
 
 ### i) Read an image
-img=mpimg.imread('CH01\Fig0101(1921 digital image).tif')
+img=plt.imread('CH01\Fig0101(1921 digital image).tif')
 
 
 ### ii) Display an image

@@ -16,14 +16,13 @@ fy:   Scaling factor of y
 '''
 
 # Important Imports:
-from skimage import io 
 import numpy as np
 from matplotlib import pyplot as plt, gridspec as gs
-from dip_toolbox import DipTools
+from dip_toolbox import Interpolation
 import cv2 as cv
 
 # Creating DipTools class
-dip=DipTools()
+inplt=Interpolation()
 
 
 # Creating our own image
@@ -32,7 +31,7 @@ img3=np.float32(img1)
 
 
 # importing a colored image
-img2=io.imread('extra_images\original_img.jpg')
+img2=plt.imread('extra_images\original_img.jpg')
 
 
 # Nearest Neighbourhood interpolation
@@ -46,11 +45,11 @@ ax11.imshow(img1)
 
 ax12=plt.subplot(gs1[0:2,2:6])
 ax12.set_title("Zoomed Image")
-ax12.imshow(dip.nearest_neighbourhood(img1,(100,100)))
+ax12.imshow(inplt.nearest_neighbourhood(img1,(100,100)))
 
 ax13=plt.subplot(gs1[1:2,0:2])
 ax13.set_title("Shrinked Image")
-ax13.imshow(dip.nearest_neighbourhood(img1,(4,4)))
+ax13.imshow(inplt.nearest_neighbourhood(img1,(4,4)))
 
 plt.suptitle('Nearest Neigbourhood Interpolation',font='Times New Roman',fontweight="bold",fontsize=16)
 plt.tight_layout()
@@ -116,7 +115,7 @@ ax41.imshow(img1)
 
 ax42=plt.subplot(gs4[0:1,1:2])
 ax42.set_title("Nearest Neighbourhood")
-ax42.imshow(dip.nearest_neighbourhood(img1,(50,50)))
+ax42.imshow(inplt.nearest_neighbourhood(img1,(50,50)))
 
 ax43=plt.subplot(gs4[1:2,0:1])
 ax43.set_title(" Bilinear Interpolation")
@@ -144,7 +143,7 @@ ax51.imshow(img1)
 
 ax52=plt.subplot(gs5[0:1,1:2])
 ax52.set_title("Nearest Neighbourhood")
-ax52.imshow(dip.nearest_neighbourhood(img1,(4,4)))
+ax52.imshow(inplt.nearest_neighbourhood(img1,(4,4)))
 
 ax53=plt.subplot(gs5[1:2,0:1])
 ax53.set_title("Bilinear Interpolation")
@@ -163,23 +162,23 @@ plt.show()
 
 # Applying the Nearest Neighbourhood algorithm on actual images:
 r,c=img2.shape[0:2]
-zimg=dip.nearest_neighbourhood(img2,(int(r*1.5),int(c*1.5),3))
-simg=dip.nearest_neighbourhood(img2,(int(r/2),int(c/2),3))
+zimg=inplt.nearest_neighbourhood(img2,(int(r*1.5),int(c*1.5),3))
+simg=inplt.nearest_neighbourhood(img2,(int(r/2),int(c/2),3))
 
 ### Displaying Images
 plt.figure(6)
 plt.title(f'Original Image {img2.shape[0:2]}')
-io.imshow(img2)
+plt.imshow(img2)
 plt.figure(7)
 plt.title(f'Zoomed Image {zimg.shape[0:2]}')
-io.imshow(zimg)
+plt.imshow(zimg)
 plt.figure(8)
 plt.title(f'Shrinked Image {simg.shape[0:2]}')
-io.imshow(simg)
+plt.imshow(simg)
 
 plt.show()
 
 ### Saving Output Images
-io.imsave(f'input_output\expt4a_original_img_{c}_{r}.jpg',img2)
-io.imsave(f'input_output\expt4a_shrinked_img_{int(c/2)}_{int(r/2)}.jpg',simg)
-io.imsave(f'input_output\expt4a_zoomed_img_{int(c*1.5)}_{int(r*1.5)}.jpg',zimg)
+plt.imsave(f'input_output\expt4a_original_img_{c}_{r}.jpg',img2)
+plt.imsave(f'input_output\expt4a_shrinked_img_{int(c/2)}_{int(r/2)}.jpg',simg)
+plt.imsave(f'input_output\expt4a_zoomed_img_{int(c*1.5)}_{int(r*1.5)}.jpg',zimg)

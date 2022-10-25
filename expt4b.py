@@ -10,7 +10,7 @@ After transmission and recieving we shall zoom using nearest neighbourhood inter
 # important imports:
 import pyqrcode
 from matplotlib import pyplot as plt,gridspec as gs
-from dip_toolbox import DipTools
+from dip_toolbox import Interpolation
 
 # String to be converted to QR code:
 s='https://vigyannveshi.netlify.app/'
@@ -27,11 +27,11 @@ ss=.98     # Minimum tested size that can help retrival
 
 
 # Creating DipTools class:
-dip=DipTools()
+inplt=Interpolation()
 
 # Saving shrinked QR code:
 
-plt.imsave('input_output\expt4b_qrcode_shrinked.jpg',dip.nearest_neighbourhood(qrcode,(int(ss*r),int(ss*c))),cmap='gray')
+plt.imsave('input_output\expt4b_qrcode_shrinked.jpg',inplt.nearest_neighbourhood(qrcode,(int(ss*r),int(ss*c))),cmap='gray')
 
 sqrcode=plt.imread('input_output\expt4b_qrcode_shrinked.jpg')
 rs,cs=sqrcode.shape[0:2]
@@ -51,7 +51,7 @@ ax11.imshow(qrcode,cmap='gray')
 
 ax12=plt.subplot(gs1[0,2])
 ax12.set_title(f'Zoomed QR Code ({int(sz*rs)},{int(sz*cs)})')
-ax12.imshow(dip.nearest_neighbourhood(qrcode,(sz*rs,sz*cs)),cmap='gray')
+ax12.imshow(inplt.nearest_neighbourhood(qrcode,(sz*rs,sz*cs)),cmap='gray')
 
 
 plt.suptitle('Resizing QR code using Nearest Neighbourhood Interpolation',font='Times New Roman',fontweight="bold",fontsize=16)
@@ -63,4 +63,4 @@ plt.show()
 
 
 # Saving zoomed QR code:
-plt.imsave('input_output\expt4b_qrcode_zoomed.jpg',dip.nearest_neighbourhood(qrcode,(sz*rs,sz*cs)),cmap='gray')
+plt.imsave('input_output\expt4b_qrcode_zoomed.jpg',inplt.nearest_neighbourhood(qrcode,(sz*rs,sz*cs)),cmap='gray')

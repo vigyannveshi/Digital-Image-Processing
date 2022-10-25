@@ -8,8 +8,6 @@ img1=plt.imread('CH02\Fig0229(a)(tungsten_filament_shaded).tif')
 img2=plt.imread('CH02\Fig0229(b)(tungsten_sensor_shading).tif')
 
 
-# plots
-
 # plots 
 fig4=plt.figure(4)
 gs4=gs.GridSpec(2,4)
