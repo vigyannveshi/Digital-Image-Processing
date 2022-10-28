@@ -40,3 +40,11 @@ Everytime the repository being updated can be tracked using the featured image w
 |                | a) Intensity Transformation to obtain the negative of an 8-bit image using Point Processing |
 |                |  b) Local Blurring using Neighbourhood Processing
 | 7.             | Geometric Spatial Transformation in Digital Image Processing                                |
+| 8. | Intensity Transformations in Digital Image Processing |
+|    | a) Contrast Stretching                                |
+|    | b) Thresholding                                       |
+|    | c) Intensity level Slicing                            |
+|    |  d) Image negative                                    |
+|    |  e) Logarithmic and Antilogarithmic Transformations   |
+|    | f) Power-Law (Gamma Transformations)                  |
+|    | g) Bit-plane slicing                                  |

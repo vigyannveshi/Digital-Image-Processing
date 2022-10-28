@@ -3,6 +3,7 @@
 # Important imports:
 from matplotlib import pyplot as plt, gridspec as gs
 import numpy as np
+from dip_toolbox import IntensityTransformations
 
 
 # importing images
@@ -14,21 +15,12 @@ img2=plt.imread('CH02\Fig0228(b)(angiography_live_ image).tif')
 img3=img2-img1
 
 # enhanced image subtraction
-r,c =img3.shape
-img4=np.zeros(img3.shape)
+# initializing object from IntensityTransformations class
+it=IntensityTransformations()
 
-
-for i in range(r):
-    for j in range(c):
-        diff_param=img3[i][j]/255
-        if diff_param>=0.05 and diff_param<=0.1: 
-            img4[i][j]=diff_param*10
-        elif diff_param>0.1 and diff_param<0.82:
-            img4[i][j]=100    
-        elif diff_param>=.82 and diff_param<=0.99:
-            img4[i][j]=diff_param*10
-        else:  
-            img4[i][j]=75
+# Intensity level slicing
+a=[50,254]; b=50; s=160
+img4=it.intensity_level_slice(a,0,b,s)(img3)
 
 
 # plots 
@@ -64,7 +56,7 @@ ax43.imshow(img3,cmap='gray')
 ax44=plt.subplot(gs4[0,1])
 ax44.set_title(" Enhanced Difference image")
 ax44.axis("off")
-ax44.imshow(img4,cmap='gray')
+ax44.imshow(img4,cmap='gray',vmin=0,vmax=255)
 
 plt.suptitle(' Image Subtraction for Angiography ',font='Times New Roman',fontweight="bold",fontsize=16)
 plt.tight_layout(pad=1.2)

@@ -61,10 +61,13 @@ class Filters():
                 img_unpd[i-d_h][j-d_w] = img[i][j]
         return img_unpd
 
-    def isc(self, img):
+    def isc(self, img,L):
         imax = np.max(img)
         imin = np.min(img)
-        img = np.uint8(img-(np.ones(img.shape)*(imin/imax)))
+        if imin<0:
+            img=((img-(np.ones(img.shape)*imin))/imax)*(L-1)
+        else:
+            img=((img-(np.ones(img.shape)))/imax)*(L-1)
         return img
 
 
