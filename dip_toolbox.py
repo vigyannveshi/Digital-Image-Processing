@@ -9,5 +9,6 @@ from important_classes.geometric_transforms import GeometricTransforms
 from important_classes.filters import Filters
 from important_classes.interpolation_techniques import Interpolation
 from important_classes.intensity_transformations import IntensityTransformations 
+from important_classes.noise_models import NoiseModels
 
 
