@@ -18,7 +18,7 @@ class NoiseModels:
 
     def __init__(self):
         # Gaussian Noise
-        self.gaussian_noise=lambda mean,variance,size: np.random.normal(loc=mean,scale=np.sqrt(variance),size=size)
+        self.gaussian_noise=lambda size,mean,variance: np.random.normal(loc=mean,scale=np.sqrt(variance),size=size)
         
         # Uniform Noise:
         self.uniform_noise=lambda size,a,b:np.random.uniform(low=a,high=b,size=size)
@@ -27,10 +27,10 @@ class NoiseModels:
         self.rayleigh_noise=lambda size,a,b:st.rayleigh(a,b).rvs(size=size)
 
         # Erlang Noise:
-        self.erlang_noise=lambda size, a,beta:st.gamma(a,scale=1/beta).rvs(size=size)
+        self.erlang_noise=lambda size, a,b:st.gamma(b,scale=(np.sqrt(b))/a).rvs(size=size)
         
         # Exponential Noise:
-        self.exponential_noise=lambda size,beta:st.expon(scale=1/beta).rvs(size=size)
+        self.exponential_noise=lambda size,a:st.expon(scale=1/a).rvs(size=size)
 
 
     def salt_pepper_noise(self,img,pp,ps):

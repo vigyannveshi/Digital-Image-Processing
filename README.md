@@ -1,6 +1,7 @@
 # **Digital Image Processing** 
 
-<img src="featured_img.png ">
+<img src="featured_img\featured_img_1.png">
+<img src="featured_img\featured_img_2.png">
 
 ## Acknowledgements
 
@@ -45,7 +46,7 @@ Everytime the repository being updated can be tracked using the featured image w
 |   |   |
 |**B.** | **Intensity Transformations and Spatial  Filtering**  |  
 |   |   |
-| 8. | Intensity Transformations in Digital Image Processing |
+| 1. | Intensity Transformations in Digital Image Processing |
 |    | a) Contrast Stretching                                |
 |    | b) Thresholding                                       |
 |    | c) Intensity level Slicing                            |
@@ -57,6 +58,6 @@ Everytime the repository being updated can be tracked using the featured image w
 || *..Some expts yet to be added*|
 |   |   |
 |**C.** | **Image Restoration and Reconstruction**  | 
-
+| 1. | Image Noise Analysis in Digital Image Processing |
 
 
