@@ -1,6 +1,6 @@
 # **Digital Image Processing** 
 
-<img src="featured_img\featured_img_1.png"><img src="featured_img\featured_img_2.png">
+<img src="featured_img\featured_img_1.png">
 
 ## Acknowledgements
 
@@ -58,5 +58,7 @@ Everytime the repository being updated can be tracked using the featured image w
 |   |   |
 |**C.** | **Image Restoration and Reconstruction**  | 
 | 1. | Image Noise Analysis in Digital Image Processing |
+| 2. | Noise removal using various mean filters|
+| 3. | Handling salt and pepper noise using Contraharmonic mean filters |
 
 

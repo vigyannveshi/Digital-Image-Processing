@@ -49,6 +49,7 @@ class IntensityTransformations:
 
     ''' Image Negative '''
     def negative(self,img,L):
+        img=np.uint8(img)
         return self.contrast_stretch(0,L-1,L-1,0)(img)
 
 
