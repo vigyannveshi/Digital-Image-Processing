@@ -1,5 +1,5 @@
 '''
-C_expt No. 2: 
+C_expt No. 3: 
 
 Title: Handling salt and pepper noise using Contraharmonic mean filters
 
@@ -51,25 +51,25 @@ ax13.axis('off')
 ax13.imshow(pn_img,cmap='gray',vmax=255,vmin=0)
 
 
-ax15=plt.subplot(gs1[1,0])
-ax15.set_title(f'CHM (q=1.5)(3*3) on PN (p=0.1)')
+ax14=plt.subplot(gs1[1,0])
+ax14.set_title(f'CHM (q=1.5)(3*3) on PN (p=0.1)')
+ax14.axis('off')
+ax14.imshow(imf.flt_apply(pn_img,ord=3,flt=imf.chm_flt(5),pad_with=255),cmap='gray',vmax=255,vmin=0)
+
+ax15=plt.subplot(gs1[1,1])
+ax15.set_title(f'CHM (q=-1.5)(3*3) on SN (p=0.1)')
 ax15.axis('off')
-ax15.imshow(imf.flt_apply(pn_img,ord=3,flt=imf.chm_flt(5),pad_with=255),cmap='gray',vmax=255,vmin=0)
+ax15.imshow(imf.flt_apply(sn_img,ord=3,flt=imf.chm_flt(-1.5),pad_with=255),cmap='gray',vmax=255,vmin=0)
 
-ax16=plt.subplot(gs1[1,1])
-ax16.set_title(f'CHM (q=-1.5)(3*3) on SN (p=0.1)')
+ax16=plt.subplot(gs1[1,2])
+ax16.set_title(f'CHM (q=-1.5)(3*3) on PN (p=0.1)')
 ax16.axis('off')
-ax16.imshow(imf.flt_apply(sn_img,ord=3,flt=imf.chm_flt(-1.5),pad_with=255),cmap='gray',vmax=255,vmin=0)
+ax16.imshow(imf.flt_apply(pn_img,ord=3,flt=imf.chm_flt(-1.5),pad_with=255),cmap='gray',vmax=255,vmin=0)
 
-ax17=plt.subplot(gs1[1,2])
-ax17.set_title(f'CHM (q=-1.5)(3*3) on PN (p=0.1)')
+ax17=plt.subplot(gs1[1,3])
+ax17.set_title(f'CHM (q=1.5)(3*3) on SN (p=0.1)')
 ax17.axis('off')
-ax17.imshow(imf.flt_apply(pn_img,ord=3,flt=imf.chm_flt(-1.5),pad_with=255),cmap='gray',vmax=255,vmin=0)
-
-ax18=plt.subplot(gs1[1,3])
-ax18.set_title(f'CHM (q=1.5)(3*3) on SN (p=0.1)')
-ax18.axis('off')
-ax18.imshow(imf.flt_apply(sn_img,ord=3,flt=imf.chm_flt(1.5),pad_with=255),cmap='gray',vmax=255,vmin=0)
+ax17.imshow(imf.flt_apply(sn_img,ord=3,flt=imf.chm_flt(1.5),pad_with=255),cmap='gray',vmax=255,vmin=0)
 
 fig1.tight_layout(pad=2.5)
 fig1.set_size_inches(13,8)

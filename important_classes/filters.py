@@ -8,8 +8,10 @@ Filters:
     # width          : no of columns in image    
     # r              : height of original image
     # c              : width of original image
-    # d_h            : needed height of padding
-    # d_w            : needed width of padding
+    # d_h            : needed height of padding /selecting neighbourhood
+    # d_w            : needed width of padding /selecting neighbourhood
+    # m_d_h          : max height of padding /selecting neighbourhood
+    # m_d_w          : max width of padding /selecting neighbourhood
     # p_h            : image height after padding 
     # p_w            : image width after padding 
     # size_org       : size of original image
@@ -35,6 +37,7 @@ Filters:
                     # min_flt       : min filter
                     # midpt_flt     : midpoint filter
                     # alptrm_flt    : alpha-trimmed mean filter
+                    
 
 
     * Methods:
@@ -43,12 +46,16 @@ Filters:
             # unpad_img         : used to unpad a padded image
             # isc               : intensity scaling correction
         
-        ** Applying Filter Masks
-            # apply_mask        : used to apply filter masks by passing masks and image
+        ** Applying Filters / Masks
+            # flt_apply           : used to apply filters by passing flts / masks and image
         
-        *** Adaptive Filters
-            # adpt_lcl_nr_flt     : adaptive local noise reduction filter
-            # adpt_median_flt     : adaptive median filter
+        ** Adaptive Filters
+            # adpt_median_flt           : adaptive median filter
+            # adpt_lclnr_flt            : adaptive local noise reduction filter 
+        
+        ** Frequency Domain Filters
+            # glp_flt                   :Gaussian Low pass filter
+            # ghp_flt                   :Gaussian High pass filter
 
 
 
@@ -98,6 +105,7 @@ class Filters():
         self.hm_flt=lambda nh: 0 if 0 in nh else np.reciprocal(np.average(np.reciprocal(nh)))
 
         self.chm_flt=lambda q:lambda nh: 0 if(0 in nh and q<0) else 0 if np.abs(np.sum(np.power(nh,q,dtype=complex)))==0 else np.abs(np.sum(np.power(nh,q+1,dtype=complex)))/np.abs(np.sum(np.power(nh,q,dtype=complex)))
+        
 
 
         ''' **** Order Statistic Filters'''
@@ -105,7 +113,7 @@ class Filters():
         self.max_flt =lambda nh: np.max(nh)
         self.min_flt=lambda nh: np.min(nh)
         self.midpt_flt=lambda nh: 0.5*(np.max(nh)+np.min(nh))
-
+        self.alptrm_flt=lambda d:lambda nh:np.average(np.sort(np.ravel(nh))[int(d/2):(np.sort(np.ravel(nh)).size-int(d/2))])
 
     # # # # # # # # # # # # # # # # # # # # # # # # #
     ''' ** Preprocessing and Post Processing functions'''
@@ -163,21 +171,138 @@ class Filters():
         p_w = c+d_w
 
         img_pd = self.pad_img(img, d_h,pad_with=pad_with)
-        masked_img = np.zeros(img_pd.shape)
+        flt_img = np.zeros(img_pd.shape)
 
         if mask.any()!=None and flt==None:
             for i in range(d_h, p_h):
                 for j in range(d_w, p_w):
-                    masked_img[i][j] = np.sum(img_pd[i-d_h:i+d_h+1, j-d_w:j+d_w+1] * mask)
+                    flt_img[i][j] = np.sum(img_pd[i-d_h:i+d_h+1, j-d_w:j+d_w+1] * mask)
+
         elif mask.any()==None and flt!=None:
             for i in range(d_h, p_h):
                 for j in range(d_w, p_w):
-                    masked_img[i][j] = flt(img_pd[i-d_h:i+d_h+1, j-d_w:j+d_w+1])
+                    flt_img[i][j] = flt(img_pd[i-d_h:i+d_h+1, j-d_w:j+d_w+1])
 
 
-        return self.unpad_img(masked_img, img.shape[0:2], d_h)
+        return self.unpad_img(flt_img, img.shape[0:2], d_h)
 
 
     # # # # # # # # # # # # # # # # # # # # # # # # #
 
+    '''** Adaptive Filters'''
+
+    # Adaptive Median Filter:
+ 
+    def adpt_median_flt(self,img,smax,pad_with=0):
+        r, c = img.shape[0:2]
+        # max window size:
+        m_d_h = int((smax-1)/2)
+        m_d_w = int((smax-1)/2)
+        # padding size:
+        p_h = r+m_d_h
+        p_w = c+m_d_w
+
+        img_pd = self.pad_img(img, m_d_h,pad_with=pad_with)
+        flt_img = np.zeros(img_pd.shape)
+
+        ### Algorithm 
+        def admf(img_pd,i,j,m_d_h,m_d_w,d_h,d_w):
+            # neighbourhood:
+            nh=img_pd[i-d_h:i+d_h+1,j-d_w:j+d_w+1]
+            # neighbourhood parameters:
+            zmin=np.min(nh)
+            zmax=np.max(nh)
+            zmed=np.median(nh)
+            zxy=img_pd[i,j]
+
+            # Stage A:
+            A1=zmed-zmin
+            A2=zmed-zmax
+
+            if A1>0 and A2<0:
+                # Stage B:
+                B1=zxy-zmin
+                B2=zxy-zmax
+                if B1>0 and B2<0:
+                    return zxy
+                else: 
+                    return zmed
+            else:
+                if d_h<m_d_h and d_w<m_d_w:
+                    d_h+=1
+                    d_w+=1
+                    return admf(img_pd,i,j,m_d_h,m_d_w,d_h,d_w)
+                else: 
+                    return zmed
+
+        ### Applying the Algorithm
+        for i in range(m_d_h, p_h):
+            for j in range(m_d_w, p_w):
+                # began with 3*3 neighbourhood:
+                d_h=1
+                d_w=1
+
+                flt_img[i][j]=admf(img_pd,i,j,m_d_h,m_d_w,d_h,d_w)
         
+        return self.unpad_img(flt_img, img.shape[0:2], m_d_h)
+                
+
+    # Adaptive Local Noise Reduction Filter:
+
+    def adpt_lclnr_flt(self,img,lcl_ord,pad_with=0):
+        r, c = img.shape[0:2]
+        d_h = int((lcl_ord-1)/2)
+        d_w = int((lcl_ord-1)/2)
+        p_h = r+d_h
+        p_w = c+d_w
+
+        img_pd = self.pad_img(img, d_h, pad_with=pad_with)
+        flt_img = np.zeros(img_pd.shape)
+
+        # Algorithm:
+        ### 1) Find the mean and variance of the locality with minimum variance
+        varl=[]
+        meanl=[]
+        for i in range(lcl_ord, r-lcl_ord):
+            for j in range(lcl_ord,c-lcl_ord):
+                nh=img_pd[i-d_h:i+d_h+1, j-d_w:j+d_w+1]
+                varl.append(np.var(nh))
+                meanl.append(np.average(nh))
+
+        var_noise=varl[np.array(varl).argmin()]
+        mean_noise=meanl[np.array(varl).argmin()]
+
+        # Applying the Algorithm:
+        for i in range(d_h, p_h):
+            for j in range(d_w, p_w):
+                nrf=var_noise/(np.var(img_pd[i-d_h:i+d_h+1, j-d_w:j+d_w+1]))
+                if nrf>1:
+                    nrf=1
+                flt_img[i][j] = (img_pd[i,j]-nrf*(img_pd[i][j]-mean_noise))
+        return self.unpad_img(flt_img, img.shape[0:2], d_h)
+
+
+    ''' Frequency Domain Filters'''
+
+    # Gaussian Low Pass Filter:
+    def glp_flt(self,img_shape,D0):
+        '''
+        D: radius or distance from the center,
+        D0: cutoff frequency
+        H(u,v)=exp((-D^2(u,v))/2*D0^2)
+        D(u,v)=[(u-M/2)^2+(v-N/2)^2]^(1/2)
+        '''
+        M,N=img_shape
+        H=np.zeros((M,N),dtype=np.float32)
+        for u in range(M):
+            for v in range(N):
+                D=np.sqrt((u-M/2)**2+(v-N/2)**2)
+                H[u,v]=np.exp(-D**2/(2*D0*D0))
+        return H
+
+    # Gaussian High Pass Filter:
+    def ghp_flt(self,img_shape,D0):
+        '''
+        ghp_flt=1-ghp_flt
+        '''
+        return 1-self.glp_flt(img_shape,D0)

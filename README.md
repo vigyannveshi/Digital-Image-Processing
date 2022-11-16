@@ -1,6 +1,6 @@
 # **Digital Image Processing** 
 
-<img src="featured_img\featured_img_1.png">
+<img src="featured_img\featured_img_1.png">&nbsp;<img src="featured_img\featured_img_2.png">
 
 ## Acknowledgements
 
@@ -49,8 +49,8 @@ Everytime the repository being updated can be tracked using the featured image w
 |    | a) Contrast Stretching                                |
 |    | b) Thresholding                                       |
 |    | c) Intensity level Slicing                            |
-|    |  d) Image negative                                    |
-|    |  e) Logarithmic and Antilogarithmic Transformations   |
+|    | d) Image negative                                     |
+|    | e) Logarithmic and Antilogarithmic Transformations    |
 |    | f) Power-Law (Gamma Transformations)                  |
 |    | g) Bit-plane slicing                                  |
 |   |   |
@@ -60,5 +60,10 @@ Everytime the repository being updated can be tracked using the featured image w
 | 1. | Image Noise Analysis in Digital Image Processing |
 | 2. | Noise removal using various mean filters|
 | 3. | Handling salt and pepper noise using Contraharmonic mean filters |
-
-
+| 4. | Handling Salt & Pepper, Gaussian and Uniform noise 
+|    |a) Using 3*3 Order Statistic filters|
+|    |b) Using 3*3  Max, Min, Midpoint filters 
+| 5. | Handling combination of additive Uniform noise with Salt & Pepper noise |
+| 6. | Handling Salt & Pepper Noise with probabilities Ps>0.2, Pp>0.2 using Adaptive Median Filter |
+| 7. | Handling Additive Gaussian noise with high variance using Adaptive Local Noise Reduction Filter |
+| 8. | Visualizing the Atmospheric Turbulence Degradation function on an image in the spatial as well as the frequency domain |
