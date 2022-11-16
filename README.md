@@ -1,6 +1,6 @@
 # **Digital Image Processing** 
 
-<img src="featured_img\featured_img_1.png">&nbsp;<img src="featured_img\featured_img_2.png">
+<img src="featured_img\featured_img_1.png"><img src="featured_img\featured_img_2.png">
 
 ## Acknowledgements
 
@@ -9,7 +9,8 @@
 **_Special Thanks to:_**
 
 - **_God_**, all the things I will and have learnt initiate and terminate from whom, who supports me in all my endeavours.
-- **_Prof. Purti Savardekar, Goa Engineering College_**, my teacher in the course of Digital Image Processing. Most of the programs written are either a part of the practicals or implementations of things learnt in theory and practical.
+- **_Rafael C. Gonzalez | Richard E.Wood_**, for the most amazing textbook on Digital Imaging Processing, that I have refered to, most of the programs written are based on concepts learnt from the book (3rd Edition). It is the standard reference for the Digital Image Processing course offered in my college. 
+- **_Prof. Purti Savardekar, Goa Engineering College_**, my teacher in the course of Digital Image Processing. For her initiative to write programs for the concepts taught in the class. Motivating me to visualize them to achieve better understanding. 
 - **_All my peers_**, in the course of Digital Image Processing for their active support.
 
 ## Disclaimer
