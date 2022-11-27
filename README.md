@@ -68,3 +68,5 @@ Everytime the repository being updated can be tracked using the featured image w
 | 6. | Handling Salt & Pepper Noise with probabilities Ps>0.2, Pp>0.2 using Adaptive Median Filter |
 | 7. | Handling Additive Gaussian noise with high variance using Adaptive Local Noise Reduction Filter |
 | 8. | Visualizing the Atmospheric Turbulence Degradation function on an image in the spatial as well as the frequency domain |
+| 9. | Visualizing the Motion Blur Degradation in an image in the spatial as well as the frequency domain|
+| 10.| Direct Inverse Filtering |
