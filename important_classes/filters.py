@@ -24,6 +24,7 @@ Filters:
         ** Filter Masks:
             *** Smoothening Filter Masks:
                 # am_mask           : arithmetic filter mask
+                # gaussian_mask     : gaussian filter mask
 
             *** Smoothening Filters
                 # am_flt            : arithmetic mean filter
@@ -69,7 +70,9 @@ class Filters():
     def __init__(self):
         '''Filter masks: Smoothening'''
         self.am_mask=lambda order:(1/(order**2))*np.ones((order,order))
+        self.guassian_mask=lambda order,sigma:np.array([np.exp(-(x**2+y**2)/2*(sigma**2)) for x in range(-int(order/2),int(order/2)+1) for y in range(-int(order/2),int(order/2)+1)]).reshape(order,order)
 
+    # # # # # # # # # # # # # # # # # # # # # # # # #
         '''Filter masks: Sharpening'''
 
         # Laplacian Filters:
@@ -78,24 +81,24 @@ class Filters():
         self.lap_mask45_le=np.array([[1,1,1],[1,-8,1],[1,1,1]])
         self.lap_mask45_de=np.array([[-1,-1,-1],[-1,8,-1],[-1,-1,-1]])
 
-        self.lap_mask_hori=np.array([[-1,-1,-1],[2,2,2],[-1,-1,-1]])
-        self.lap_mask_vert=np.array([[-1,2,-1],[-1,2,-1],[-1,2,-1]])
-        self.lap_mask_45_diag_45=np.array([[2,-1,-1],[-1,2,-1],[-1,-1,2]])
-        self.lap_mask_45_diag_m45=np.array([[-1,-1,2],[-1,2,-1],[2,-1,-1]])
+        self.line_mask_x=np.array([[-1,-1,-1],[2,2,2],[-1,-1,-1]])
+        self.line_mask_y=np.array([[-1,2,-1],[-1,2,-1],[-1,2,-1]])
+        self.line_mask_pxy=np.array([[2,-1,-1],[-1,2,-1],[-1,-1,2]])
+        self.line_mask_nxy=np.array([[-1,-1,2],[-1,2,-1],[2,-1,-1]])
 
         # Prewitt Filters:
-        self.prew_mask_hori=np.array([[-1,-1,-1],[0,0,0],[1,1,1]])
-        self.prew_mask_vert=np.array([[-1,0,1],[-1,0,1],[-1,0,1]])
-        self.prew_mask_diag_45=np.array([[0,1,1],[-1,0,1],[-1,-1,0]])
-        self.prew_mask_diag_m45=np.array([[-1,-1,0],[-1,0,1],[0,1,1]])
+        self.prew_mask_x=np.array([[-1,-1,-1],[0,0,0],[1,1,1]])
+        self.prew_mask_y=np.array([[-1,0,1],[-1,0,1],[-1,0,1]])
+        self.prew_mask_pxy=np.array([[0,1,1],[-1,0,1],[-1,-1,0]])
+        self.prew_mask_nxy=np.array([[-1,-1,0],[-1,0,1],[0,1,1]])
 
         # Sobel Filters:
-        self.sobel_mask_hori=np.array([[-1,-2,-1],[0,0,0],[1,2,1]])
-        self.sobel_mask_vert=np.array([[-1,0,1],[-2,0,2],[-1,0,1]])
-        self.sobel_mask_diag_45=np.array([[0,1,2],[-1,0,1],[-2,-1,0]])
-        self.sobel_mask_diag_m45=np.array([[-2,-1,0],[-1,0,1],[0,1,2]])
-        
+        self.sobel_mask_x=np.array([[-1,-2,-1],[0,0,0],[1,2,1]])
+        self.sobel_mask_y=np.array([[-1,0,1],[-2,0,2],[-1,0,1]])
+        self.sobel_mask_pxy=np.array([[0,1,2],[-1,0,1],[-2,-1,0]])
+        self.sobel_mask_nxy=np.array([[-2,-1,0],[-1,0,1],[0,1,2]])
 
+    # # # # # # # # # # # # # # # # # # # # # # # # #
         
         '''Filters: Smoothening'''
         self.am_flt=lambda nh: np.average(nh)
@@ -116,6 +119,7 @@ class Filters():
         self.alptrm_flt=lambda d:lambda nh:np.average(np.sort(np.ravel(nh))[int(d/2):(np.sort(np.ravel(nh)).size-int(d/2))])
 
     # # # # # # # # # # # # # # # # # # # # # # # # #
+
     ''' ** Preprocessing and Post Processing functions'''
     def pad_img(self, img, layers, pad_with=0):
 
@@ -284,6 +288,38 @@ class Filters():
 
     ''' Frequency Domain Filters'''
 
+    # Ideal lowpass filter:
+    def idl_lp_flt(self,img_shape,D0):
+        M,N=img_shape
+        H=np.zeros((M,N),dtype=np.float32)
+        for u in range(M):
+            for v in range(N):
+                D=np.sqrt((u-M/2)**2+(v-N/2)**2)
+                if D<=D0:
+                    H[u,v]=1
+                else:
+                    H[u,v]=0
+        return H
+
+    # Ideal highpass filter:
+    def idl_hp_flt(self,img_shape,D0):
+        '''
+        idl_hp_flt=1-idl_lp_flt
+        '''
+        return 1-self.idl_lp_flt(img_shape,D0)
+
+
+    # Butterworth filter:
+    def bw_lp_flt(self,img_shape,D0,n):
+        M,N=img_shape
+        H=np.zeros((M,N),dtype=np.float32)
+        for u in range(M):
+            for v in range(N):
+                D=np.sqrt((u-M/2)**2+(v-N/2)**2)
+                H[u,v]=1/(1+(D/D0)**(2*n))
+        return H
+
+
     # Gaussian Low Pass Filter:
     def glp_flt(self,img_shape,D0):
         '''
@@ -306,3 +342,5 @@ class Filters():
         ghp_flt=1-ghp_flt
         '''
         return 1-self.glp_flt(img_shape,D0)
+    
+    

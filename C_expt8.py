@@ -1,9 +1,9 @@
 '''
 C_expt No. 8: 
 
-Title: Visualizing the Atmospheric Turbulence Degradation function on an image in the spatial as well as the frequency domain
+Title: Visualizing the Atmospheric Turbulence Degradation in an image in the spatial as well as the frequency domain
 
-Aim: To write a program using Python to visualize the effect Atmospheric Turbulence Degradation function [H(u,v)=e^(-k)(u^2+v^2) :Hufnagel - Stanley 1964] in the spatial and frequency Domain
+Aim: To write a program using Python to visualize the effect of Atmospheric Turbulence Degradation {H(u,v)=e^(-k)((u-M/2)^2+(v-N/2)^2) :Hufnagel - Stanley 1964} in the spatial and frequency Domain
 for different values of k:
 1) k=0.0025 (Severe Turbulence)
 2) k=0.001  (Mild Turbulence)
@@ -24,15 +24,15 @@ it=IntensityTransformations()
 img1=plt.imread('CH05\Fig0525(a)(aerial_view_no_turb).tif')
 img1_f=fd.dftshift2(fd.dft2(img1))
 
-# turbulence degradation functions:
-H_st=dm.atm_tur(img1.shape,0.0025)  # Severe Turbulence
-H_mt=dm.atm_tur(img1.shape,0.001)   # Mild Turbulence
+# atmospheric turbulence degradation:
+H_st=dm.atm_tur(img1.shape,0.0025)    # Severe Turbulence
+H_mt=dm.atm_tur(img1.shape,0.001)     # Mild Turbulence
 H_lt=dm.atm_tur(img1.shape,0.00025)   # Low Turbulence
 
 # degraded images in frequency domain:
-img_f_H_st=fd.dftshift2(fd.dft2(img1))*H_st
-img_f_H_mt=fd.dftshift2(fd.dft2(img1))*H_mt
-img_f_H_lt=fd.dftshift2(fd.dft2(img1))*H_lt
+img_f_H_st=img1_f*H_st
+img_f_H_mt=img1_f*H_mt
+img_f_H_lt=img1_f*H_lt
 
 # degraded images in spatial domain:
 img_s_H_st=fd.idft2(fd.dftshift2(img_f_H_st))
@@ -60,7 +60,6 @@ ax13.set_title(f'k=0.001  (Mild Turbulence)')
 ax13.axis('off')
 ax13.imshow(img_s_H_mt,cmap='gray',vmax=255,vmin=0)
 
-
 ax14=plt.subplot(gs1[0,3])
 ax14.set_title(f'k=0.00025 (Low Turbulence)')
 ax14.axis('off')
@@ -84,6 +83,6 @@ ax18.imshow(it.gamma(0.1,255)(np.abs(img_f_H_lt)),cmap='gray')
 
 fig1.tight_layout(pad=2.5)
 fig1.set_size_inches(13,8)
-fig1.suptitle('Visualizing the Atmospheric Turbulence Degradation function on an image in the spatial as well as the frequency domain',font='Times New Roman',fontweight="bold",fontsize=16)
+fig1.suptitle('Visualizing the Atmospheric Turbulence Degradation in an image in the spatial as well as the frequency domain',font='Times New Roman',fontweight="bold",fontsize=16)
 fig1.savefig('input_output/C_expt8.jpg',dpi=500)
 plt.show()
