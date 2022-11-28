@@ -21,11 +21,33 @@ Filters:
 
 
     * Attributes:
-        ** Filter Masks:
-            *** Smoothening Filter Masks:
+        ** Filter Masks
+            *** Smoothening Filter Masks
                 # am_mask           : arithmetic filter mask
                 # gaussian_mask     : gaussian filter mask
 
+            *** Sharpening Filter Masks
+                *** Laplacian Masks
+                    # lap_mask90_le     : 90 degrees Laplacian mask (light edges)
+                    # lap_mask90_de     : 90 degrees Laplacian mask (dark edges)
+                    # lap_mask45_le     : 45 degrees Laplacian mask (light edges)
+                    # lap_mask45_de     : 45 degrees Laplacian mask (dark edges)
+                *** Line Detection Masks
+                    # line_mask_x         : Horizontal line detection mask 
+                    # line_mask_y         : Vertical line detection mask
+                    # line_mask_pxy       : 45 degrees diagonal line detection mask
+                    # line_mask_nxy       : -45 degrees diagonal line detection mask
+                *** Prewitt Masks
+                    # prew_mask_x        : Horizontal Prewitt mask  
+                    # prew_mask_y        : Vertical Prewitt mask 
+                    # prew_mask_pxy      : 45 degrees diagonal Prewitt mask 
+                    # prew_mask_nxy      : -45 degrees diagonal Prewitt mask 
+                *** Sobel Masks 
+                    sobel_mask_x         : Horizontal Sobel mask
+                    sobel_mask_y         : Vertical Sobel mask
+                    sobel_mask_pxy       : 45 degrees diagonal Sobel mask
+                    sobel_mask_nxy       : -45 degrees diagonal Sobel mask
+            
             *** Smoothening Filters
                 # am_flt            : arithmetic mean filter
                 # gm_flt            : geometric mean filter
@@ -38,8 +60,8 @@ Filters:
                     # min_flt       : min filter
                     # midpt_flt     : midpoint filter
                     # alptrm_flt    : alpha-trimmed mean filter
-                    
 
+            *** Minimum Mean Square Error (Weiner) Filtering 
 
     * Methods:
         ** Pre-Post Processing
@@ -53,11 +75,15 @@ Filters:
         ** Adaptive Filters
             # adpt_median_flt           : adaptive median filter
             # adpt_lclnr_flt            : adaptive local noise reduction filter 
-        
-        ** Frequency Domain Filters
-            # glp_flt                   :Gaussian Low pass filter
-            # ghp_flt                   :Gaussian High pass filter
 
+        ** Frequency Domain Filters
+            *** Laplacian Masks
+            # idl_lp_flt                : ideal low pass filter
+            # idl_hp_flt                : ideal high pass filter
+            # bw_lp_flt                 : butterworth low pass filter
+            # glp_flt                   : gaussian low pass filter
+            # ghp_flt                   : gaussian high pass filter
+            
 
 
 '''
@@ -75,24 +101,25 @@ class Filters():
     # # # # # # # # # # # # # # # # # # # # # # # # #
         '''Filter masks: Sharpening'''
 
-        # Laplacian Filters:
+        # Laplacian Masks:
         self.lap_mask90_le=np.array([[0,1,0],[1,-4,1],[0,1,0]])
         self.lap_mask90_de=np.array([[0,-1,0],[-1,4,-1],[0,-1,0]])
         self.lap_mask45_le=np.array([[1,1,1],[1,-8,1],[1,1,1]])
         self.lap_mask45_de=np.array([[-1,-1,-1],[-1,8,-1],[-1,-1,-1]])
 
+        # Line Detection Masks:
         self.line_mask_x=np.array([[-1,-1,-1],[2,2,2],[-1,-1,-1]])
         self.line_mask_y=np.array([[-1,2,-1],[-1,2,-1],[-1,2,-1]])
         self.line_mask_pxy=np.array([[2,-1,-1],[-1,2,-1],[-1,-1,2]])
         self.line_mask_nxy=np.array([[-1,-1,2],[-1,2,-1],[2,-1,-1]])
 
-        # Prewitt Filters:
+        # Prewitt Masks:
         self.prew_mask_x=np.array([[-1,-1,-1],[0,0,0],[1,1,1]])
         self.prew_mask_y=np.array([[-1,0,1],[-1,0,1],[-1,0,1]])
         self.prew_mask_pxy=np.array([[0,1,1],[-1,0,1],[-1,-1,0]])
         self.prew_mask_nxy=np.array([[-1,-1,0],[-1,0,1],[0,1,1]])
 
-        # Sobel Filters:
+        # Sobel Masks:
         self.sobel_mask_x=np.array([[-1,-2,-1],[0,0,0],[1,2,1]])
         self.sobel_mask_y=np.array([[-1,0,1],[-2,0,2],[-1,0,1]])
         self.sobel_mask_pxy=np.array([[0,1,2],[-1,0,1],[-2,-1,0]])
@@ -109,8 +136,6 @@ class Filters():
 
         self.chm_flt=lambda q:lambda nh: 0 if(0 in nh and q<0) else 0 if np.abs(np.sum(np.power(nh,q,dtype=complex)))==0 else np.abs(np.sum(np.power(nh,q+1,dtype=complex)))/np.abs(np.sum(np.power(nh,q,dtype=complex)))
         
-
-
         ''' **** Order Statistic Filters'''
         self.median_flt=lambda nh: np.median(nh)
         self.max_flt =lambda nh: np.max(nh)
@@ -119,6 +144,12 @@ class Filters():
         self.alptrm_flt=lambda d:lambda nh:np.average(np.sort(np.ravel(nh))[int(d/2):(np.sort(np.ravel(nh)).size-int(d/2))])
 
     # # # # # # # # # # # # # # # # # # # # # # # # #
+    
+        '''Minimum Mean Square Error (Weiner) Filtering'''
+        self.weiner_flt=lambda H,k: (1/H)*((np.abs(H)**2)/((np.abs(H)**2)+k))
+
+    # # # # # # # # # # # # # # # # # # # # # # # # #
+
 
     ''' ** Preprocessing and Post Processing functions'''
     def pad_img(self, img, layers, pad_with=0):
@@ -285,6 +316,8 @@ class Filters():
                 flt_img[i][j] = (img_pd[i,j]-nrf*(img_pd[i][j]-mean_noise))
         return self.unpad_img(flt_img, img.shape[0:2], d_h)
 
+
+    # # # # # # # # # # # # # # # # # # # # # # # # #
 
     ''' Frequency Domain Filters'''
 

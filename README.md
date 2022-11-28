@@ -1,6 +1,6 @@
 # **Digital Image Processing** 
 
-<img src="featured_img\featured_img_1.png"><img src="featured_img\featured_img_2.png"> 
+<img src="featured_img\featured_img_1.png"><img src="featured_img\featured_img_2.png">
 
 ## Acknowledgements
 
@@ -11,15 +11,17 @@
 - **_God_**, all the things I will and have learnt initiate and terminate from whom, who supports me in all my endeavours.
 - **_Rafael C. Gonzalez | Richard E.Wood_**, for the most amazing textbook on Digital Imaging Processing, that I have refered to, most of the programs written are based on concepts learnt from the book (3rd Edition). It is the standard reference for the Digital Image Processing course offered in my college. 
 - **_Prof. Purti Savardekar, Goa Engineering College_**, my teacher in the course of Digital Image Processing. For her initiative to write programs for the concepts taught in the class. Motivating me to visualize them to achieve better understanding. 
-- **_All my peers_**, in the course of Digital Image Processing for their active support.
+- **_My parents, and well-wishers_**, for their active support
 
 ## Disclaimer
 
 ---
 The repository is created to share the concepts that I have been fortunate to learn in the Digital Image Processing course. I hope it  helps DIP enthusiasts in their journey. All programs have been written in python. The experiments are implementations of concepts. Most of the concepts have been tried to be implemented from scratch to understand the underlying nitti-grittis and have been combined into classes for better code organization and access. Rest of them have been inherited from existing image processing libraries in python to avoid reinventing the wheel unnecessarily. Images used in the experiments are taken from reference:https://www.imageprocessingplace.com/DIP-3E/dip3e_book_images_downloads.htm
 and are used only for study purposes.
-They are arranged  chapterwise in their respective folders.  All extra images used have been stored in the folder: **extra_images**, the input given and output generated are stored in folder: **input_output**, the concept related functions that have been created from scratch have been saved into their respective classes into folder: **important_classes**, and for easy access in programs have been imported into common file **dip_toolbox.py**. 
-Everytime the repository being updated can be tracked using the featured image which depicts the **input_output** folder
+Everytime the repository being updated can be tracked using the featured image which depicts the **input_output** folder.
+
+## Making the Best possible use of the repository:
+Download the repository as a zip file, and extract it in a folder on your local system. All the experiments exist as separate python files, the images used are in separate folders **{CH01,CH02,CH03..., extra_images}**, the classes created for special functionalities are stored in separate folder **important_classes**  which are combined for easy access using the python file **diptoolbox**. You will be able to run the experiments directly using their corresponding python files, the final output will be saved in the **input_output** folder. You are encouraged to tweak the values and observe the change, and if you find something new or something strange please do share it at: mailtovigyannveshi@gmail.com
 
 ## Experiments Done:
 ---
@@ -69,4 +71,4 @@ Everytime the repository being updated can be tracked using the featured image w
 | 7. | Handling Additive Gaussian noise with high variance using Adaptive Local Noise Reduction Filter |
 | 8. | Visualizing the Atmospheric Turbulence Degradation function on an image in the spatial as well as the frequency domain |
 | 9. | Visualizing the Motion Blur Degradation in an image in the spatial as well as the frequency domain|
-| 10.| Direct Inverse Filtering |
+| 10.| Direct Inverse and Weiner Filtering |
