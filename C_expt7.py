@@ -33,7 +33,7 @@ ord=7
 flt_am_img=flt.flt_apply(img_gn,ord,flt.am_flt,pad_with=255)
 flt_gm_img=flt.flt_apply(img_gn,ord,flt.gm_flt,pad_with=255)
 flt_hm_img=flt.flt_apply(img_gn,ord,flt.hm_flt,pad_with=255)
-flt_alnr_img=flt.adpt_lclnr_flt(img_gn,ord,pad_with=255)
+flt_alnr_img=flt.adpt_lclnr_flt(img_gn,ord,var,pad_with=255)
 
 # plots:
 fig1=plt.figure(1)

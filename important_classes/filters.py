@@ -284,7 +284,7 @@ class Filters():
 
     # Adaptive Local Noise Reduction Filter:
 
-    def adpt_lclnr_flt(self,img,lcl_ord,pad_with=0):
+    def adpt_lclnr_flt(self,img,lcl_ord,noise_var,pad_with=0):
         r, c = img.shape[0:2]
         d_h = int((lcl_ord-1)/2)
         d_w = int((lcl_ord-1)/2)
@@ -294,26 +294,14 @@ class Filters():
         img_pd = self.pad_img(img, d_h, pad_with=pad_with)
         flt_img = np.zeros(img_pd.shape)
 
-        # Algorithm:
-        ### 1) Find the mean and variance of the locality with minimum variance
-        varl=[]
-        meanl=[]
-        for i in range(lcl_ord, r-lcl_ord):
-            for j in range(lcl_ord,c-lcl_ord):
-                nh=img_pd[i-d_h:i+d_h+1, j-d_w:j+d_w+1]
-                varl.append(np.var(nh))
-                meanl.append(np.average(nh))
-
-        var_noise=varl[np.array(varl).argmin()]
-        mean_noise=meanl[np.array(varl).argmin()]
-
         # Applying the Algorithm:
         for i in range(d_h, p_h):
             for j in range(d_w, p_w):
-                nrf=var_noise/(np.var(img_pd[i-d_h:i+d_h+1, j-d_w:j+d_w+1]))
-                if nrf>1:
-                    nrf=1
-                flt_img[i][j] = (img_pd[i,j]-nrf*(img_pd[i][j]-mean_noise))
+                #rnv2lv: ratio of noise variance to local variance
+                rnv2lv=noise_var/(np.var(img_pd[i-d_h:i+d_h+1, j-d_w:j+d_w+1]))
+                if rnv2lv>1:
+                    rnv2lv=1
+                flt_img[i][j] = (img_pd[i,j]-rnv2lv*(img_pd[i][j]-np.average(img_pd[i-d_h:i+d_h+1, j-d_w:j+d_w+1])))
         return self.unpad_img(flt_img, img.shape[0:2], d_h)
 
 
