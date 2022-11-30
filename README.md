@@ -21,6 +21,8 @@ Tracking about updates in the experiments, can be done by checking out the featu
 
 
 ## Making the Best possible use of the repository:
+
+---
 Download the repository as a zip file, and extract it in a folder on your local system. All the experiments exist as separate python files, the images used are in separate folders **{CH01,CH02,CH03..., extra_images}**, the classes created for special functionalities are stored in separate folder **important_classes**  which are combined for easy access using the python file **diptoolbox**. You will be able to run the experiments directly using their corresponding python files, the final output will be saved in the **input_output** folder. You are encouraged to tweak the values and observe the change, and if you find something new or something strange please do share it at: mailtovigyannveshi@gmail.com
 
 
