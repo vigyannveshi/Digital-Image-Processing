@@ -77,4 +77,4 @@ Download the repository as a zip file, and extract it in a folder on your local 
 | 9. | Visualizing the Motion Blur Degradation in an image in the spatial as well as the frequency domain|
 | 10.| Direct Inverse and Weiner Filtering |
 |   |   |
-|**D.** | **Morphological Image Processing**  | 
+|**D.** | **Filtering in the Frequency Domain**  | 

@@ -39,7 +39,7 @@ H_st=dm.atm_tur(img1.shape,0.0025)    # Severe Turbulence
 img_f_H_st=img1_f*H_st
 
 ### degraded image in spatial domain:
-img_s_H_st=fd.idft2(fd.dftshift2(img_f_H_st))
+img_s_H_st=np.real(fd.idft2(fd.dftshift2(img_f_H_st)))
 
 
 # Recovery from degraded image:
@@ -49,15 +49,15 @@ img_f_deg=fd.dftshift2(fd.dft2(img_s_H_st))
 ### Inverse filtering and bounding the output using butterworth filter of order 10, and different radii in frequency domain: 
 img_f_invf=img_f_deg/H_st
 ord=10
-img_f_invf_b_40=(img_f_invf)*flt.bw_lp_flt(img_f_invf.shape,40,ord)
-img_f_invf_b_150=(img_f_invf)*flt.bw_lp_flt(img_f_invf.shape,150,ord)
-img_f_invf_b_180=(img_f_invf)*flt.bw_lp_flt(img_f_invf.shape,180,ord)
+img_f_invf_b_40=(img_f_invf)*flt.bw_lp_flt((img_f_invf.shape),40,ord)
+img_f_invf_b_150=(img_f_invf)*flt.bw_lp_flt((img_f_invf.shape),150,ord)
+img_f_invf_b_180=(img_f_invf)*flt.bw_lp_flt((img_f_invf.shape),180,ord)
 
 ### Inverse filtering and bounding the output using butterworth filter of order 10, and different radii in spatial domain: 
-img_s_invf=fd.idft2(fd.dftshift2(img_f_invf))
-img_s_invf_b_40=fd.idft2(fd.dftshift2(img_f_invf_b_40))
-img_s_invf_b_150=fd.idft2(fd.dftshift2(img_f_invf_b_150))
-img_s_invf_b_180=fd.idft2(fd.dftshift2(img_f_invf_b_180))
+img_s_invf=np.real(fd.idft2(fd.dftshift2(img_f_invf)))
+img_s_invf_b_40=np.real(fd.idft2(fd.dftshift2(img_f_invf_b_40)))
+img_s_invf_b_150=np.real(fd.idft2(fd.dftshift2(img_f_invf_b_150)))
+img_s_invf_b_180=np.real(fd.idft2(fd.dftshift2(img_f_invf_b_180)))
 
 ### Weiner filtering in frequency domain:
 K1=1
@@ -70,10 +70,10 @@ img_f_wf3=img_f_deg*flt.weiner_flt(H_st,K3)
 img_f_wf4=img_f_deg*flt.weiner_flt(H_st,K4)
 
 ### Weiner filtering in spatial domain:
-img_s_wf1=fd.idft2(fd.dftshift2(img_f_wf1))
-img_s_wf2=fd.idft2(fd.dftshift2(img_f_wf2))
-img_s_wf3=fd.idft2(fd.dftshift2(img_f_wf3))
-img_s_wf4=fd.idft2(fd.dftshift2(img_f_wf4))
+img_s_wf1=np.real(fd.idft2(fd.dftshift2(img_f_wf1)))
+img_s_wf2=np.real(fd.idft2(fd.dftshift2(img_f_wf2)))
+img_s_wf3=np.real(fd.idft2(fd.dftshift2(img_f_wf3)))
+img_s_wf4=np.real(fd.idft2(fd.dftshift2(img_f_wf4)))
 
 
 # plots
@@ -93,7 +93,7 @@ ax12.imshow(img_s_H_st,cmap='gray',vmax=255,vmin=0)
 ax13=plt.subplot(gs1[0,2])
 ax13.set_title(f'Result of Direct Inverse Filtering (full filter)')
 ax13.axis('off')
-ax13.imshow(flt.isc(img_s_invf,255),cmap='gray',vmax=255,vmin=0)
+ax13.imshow(img_s_invf,cmap='gray',vmax=255,vmin=0)
 
 ax14=plt.subplot(gs1[1,0])
 ax14.axis('off')
@@ -129,7 +129,7 @@ ax22.imshow(img_s_invf_b_150,cmap='gray',vmax=255,vmin=0)
 ax23=plt.subplot(gs2[0,2])
 ax23.set_title(f'Result cutoff outside radius of 180')
 ax23.axis('off')
-ax23.imshow(flt.isc(img_s_invf_b_180,255),cmap='gray',vmax=255,vmin=0)
+ax23.imshow(img_s_invf_b_180,cmap='gray',vmax=255,vmin=0)
 
 
 ax24=plt.subplot(gs2[1,0])
@@ -166,7 +166,7 @@ ax32.imshow(img_s_H_st,cmap='gray',vmax=255,vmin=0)
 ax33=plt.subplot(gs3[0,2])
 ax33.set_title(f'Result of Weiner Filtering (K={K1})')
 ax33.axis('off')
-ax33.imshow(flt.isc(img_s_wf1,255),cmap='gray',vmax=255,vmin=0)
+ax33.imshow(img_s_wf1,cmap='gray',vmax=255,vmin=0)
 
 ax34=plt.subplot(gs3[1,0])
 ax34.axis('off')
@@ -192,17 +192,17 @@ gs4=gs.GridSpec(2,3)
 ax41=plt.subplot(gs4[0,0])
 ax41.set_title(f'Result of Weiner Filtering (K={K2})')
 ax41.axis('off')
-ax41.imshow(flt.isc(img_s_wf2,255),cmap='gray',vmax=255,vmin=0)
+ax41.imshow(img_s_wf2,cmap='gray',vmax=255,vmin=0)
 
 ax42=plt.subplot(gs4[0,1])
 ax42.set_title(f'Result of Weiner Filtering (K={K3})')
 ax42.axis('off')
-ax42.imshow(flt.isc(img_s_wf3,255),cmap='gray',vmax=255,vmin=0)
+ax42.imshow(img_s_wf3,cmap='gray',vmax=255,vmin=0)
 
 ax43=plt.subplot(gs4[0,2])
 ax43.set_title(f'Result of Weiner Filtering (K={K4})')
 ax43.axis('off')
-ax43.imshow(flt.isc(img_s_wf4,255),cmap='gray',vmax=255,vmin=0)
+ax43.imshow(img_s_wf4,cmap='gray',vmax=255,vmin=0)
 
 ax44=plt.subplot(gs4[1,0])
 ax44.axis('off')

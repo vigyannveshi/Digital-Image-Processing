@@ -35,9 +35,9 @@ img_f_H_y=img1_f*H_y
 img_f_H_xy=img1_f*H_xy
 
 # degraded images in spatial domain:
-img_s_H_x=fd.idft2(fd.dftshift2(img_f_H_x))
-img_s_H_y=fd.idft2(fd.dftshift2(img_f_H_y))
-img_s_H_xy=fd.idft2(fd.dftshift2(img_f_H_xy))
+img_s_H_x=np.real(fd.idft2(fd.dftshift2(img_f_H_x)))
+img_s_H_y=np.real(fd.idft2(fd.dftshift2(img_f_H_y)))
+img_s_H_xy=np.real(fd.idft2(fd.dftshift2(img_f_H_xy)))
 
 
 # plots

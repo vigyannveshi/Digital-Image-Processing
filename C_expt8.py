@@ -35,10 +35,9 @@ img_f_H_mt=img1_f*H_mt
 img_f_H_lt=img1_f*H_lt
 
 # degraded images in spatial domain:
-img_s_H_st=fd.idft2(fd.dftshift2(img_f_H_st))
-img_s_H_mt=fd.idft2(fd.dftshift2(img_f_H_mt))
-img_s_H_lt=fd.idft2(fd.dftshift2(img_f_H_lt))
-
+img_s_H_st=np.real(fd.idft2(fd.dftshift2(img_f_H_st)))
+img_s_H_mt=np.real(fd.idft2(fd.dftshift2(img_f_H_mt)))
+img_s_H_lt=np.real(fd.idft2(fd.dftshift2(img_f_H_lt)))
 
 
 # plots
