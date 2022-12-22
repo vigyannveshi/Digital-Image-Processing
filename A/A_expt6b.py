@@ -6,6 +6,11 @@ Local Blurring using Neighbourhood Processing
 
 # Important imports:
 from matplotlib import pyplot as plt, gridspec as gs
+
+### adding path to dip_toolbox
+import sys
+sys.path.append('./')
+
 from dip_toolbox import Filters
 
 img2=plt.imread('CH02\Fig0235(c)(kidney_original).tif')

@@ -18,6 +18,11 @@ fy:   Scaling factor of y
 # Important Imports:
 import numpy as np
 from matplotlib import pyplot as plt, gridspec as gs
+
+### adding path to dip_toolbox
+import sys
+sys.path.append('./')
+
 from dip_toolbox import Interpolation
 import cv2 as cv
 

@@ -6,11 +6,14 @@ Image Subtraction for Enhancing Differences
 
 
 # Important imports:
+
+### adding path to dip_toolbox
+import sys
+sys.path.append('./')
+
 from dip_toolbox import IntensityTransformations
+
 from matplotlib import pyplot as plt, gridspec as gs
-
-from important_classes.intensity_transformations import IntensityTransformations
-
 
 # importing image
 img2=plt.imread('CH02\Fig0227(a)(washington_infrared).tif')

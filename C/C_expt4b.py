@@ -8,6 +8,11 @@ Using 3*3  Max, Min, Midpoint filters
 
 # important imports:
 from matplotlib import pyplot as plt,gridspec as gs
+
+### adding path to dip_toolbox
+import sys
+sys.path.append('./')
+
 from dip_toolbox import NoiseModels, Filters
 
 # creating objects from NoiseModels and Filters class:

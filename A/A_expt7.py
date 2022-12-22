@@ -13,8 +13,12 @@ Aim: To write a program using Python to perform the following Transformation:
 '''
 
 # important imports
-import numpy as np
-from matplotlib import pyplot as plt,gridspec as gs 
+from matplotlib import pyplot as plt,gridspec as gs
+
+### adding path to dip_toolbox
+import sys
+sys.path.append('./')
+
 from dip_toolbox import GeometricTransforms 
 
 # importing images

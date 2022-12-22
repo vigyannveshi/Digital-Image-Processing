@@ -12,6 +12,11 @@ a=0.1, b=0.1, T=1
 # important imports:
 import numpy as np
 from matplotlib import pyplot as plt,gridspec as gs
+
+### adding path to dip_toolbox
+import sys
+sys.path.append('./')
+
 from dip_toolbox import FrequencyDomain,DegradationModels,IntensityTransformations
 
 # creating objects from the classes imported:

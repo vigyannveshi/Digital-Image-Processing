@@ -14,8 +14,12 @@ iv)   Contraharmonic mean filter (q=1.5)(3*3) on salt noise
 
 # important imports
 from matplotlib import pyplot as plt, gridspec as gs
+
+### adding path to dip_toolbox
+import sys
+sys.path.append('./')
+
 from dip_toolbox import NoiseModels, Filters
-import cv2 as cv
 
 
 # importing image and addition of Gaussian noise:

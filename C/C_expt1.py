@@ -10,6 +10,11 @@ Noises added: Gaussian, Rayleigh, Gamma/Erlang, Exponential, Uniform, Salt&Peppe
 
 # important imports:
 from matplotlib import pyplot as plt,gridspec as gs
+
+### adding path to dip_toolbox
+import sys
+sys.path.append('./')
+
 from dip_toolbox import NoiseModels
 
 # importing original image

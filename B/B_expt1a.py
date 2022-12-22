@@ -1,7 +1,20 @@
 '''
-B_expt No. 1d: 
+B_expt No. 1a: 
 
-Negative
+Title: Intensity Transformations in Digital Image Processing using Python
+
+Aim: To write a program using Python to perform the following Transformation:
+    a) Contrast Stretching 
+    b) Thresholding
+    c) Intensity level Slicing
+    d) Image negative
+    e) Logarithmic and Antilogarithmic Transformations
+    f) Power-Law (Gamma Transformations)
+    g) Bit-plane slicing 
+'''
+
+'''
+a) Contrast Stretching
 
 Note: By default matplotlib.pyplot stretches the contrast of the image, which is not expected by us as learners, so we need to pass the lower and higher values of intensities in imshow(img,vmin=0,vmax=255) to get output as per our transform function
 
@@ -10,20 +23,27 @@ Note: By default matplotlib.pyplot stretches the contrast of the image, which is
 # important imports
 import numpy as np
 from matplotlib import pyplot as plt, gridspec as gs
+
+### adding path to dip_toolbox
+import sys
+sys.path.append('./')
+
 from dip_toolbox import IntensityTransformations
 
 # initializing object from IntensityTransformations class
 it=IntensityTransformations()
 
 # importing images
-img1=plt.imread('CH03\Fig0304(a)(breast_digital_Xray).tif')
+img1=plt.imread('CH03\Fig0310(b)(washed_out_pollen_image).tif')
 
 # intensity levels
 L=256
 
-# negative
+# contrast stretching
+r1=96; r2=159; s1=32; s2=223
+cs=it.contrast_stretch(r1,r2,s1,s2)
 r=np.arange(0,L)
-s,img2=it.negative(r,L),it.negative(img1,L)
+s,img2=cs(r),cs(img1)
 
 
 # plotting:
@@ -43,12 +63,12 @@ ax12.set_xlabel('input image intensity (r)')
 ax12.set_ylabel('output image intensity (s)')
 
 ax13=plt.subplot(gs1[0,2])
-ax13.set_title('Negative image')
+ax13.set_title('Contrast Stretched image')
 ax13.axis('off')
 ax13.imshow(img2,cmap='gray',vmin=0,vmax=255)
 
-plt.suptitle('Image Negative ',font='Times New Roman',fontweight="bold",fontsize=16)
+plt.suptitle('Contrast Stretching ',font='Times New Roman',fontweight="bold",fontsize=16)
 plt.tight_layout(pad=2.5)
 fig1.set_size_inches(13, 8)
-plt.savefig('input_output/B_expt1_d.jpg',dpi=500)
+plt.savefig('input_output/B_expt1_a.jpg',dpi=500)
 plt.show()

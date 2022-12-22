@@ -9,7 +9,13 @@ Note: For the program of bitplane slicing, refer diptools.py
 
 '''
 
+# important imports
 from matplotlib import pyplot as plt, gridspec as gs
+
+### adding path to dip_toolbox
+import sys
+sys.path.append('./')
+
 from dip_toolbox import IntensityTransformations
 
 # importing image

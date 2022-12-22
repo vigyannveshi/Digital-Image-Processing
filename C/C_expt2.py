@@ -17,6 +17,11 @@ viii) Contraharmonic mean filter (5*5), q=2
 
 # important imports
 from matplotlib import pyplot as plt, gridspec as gs
+
+### adding path to dip_toolbox
+import sys
+sys.path.append('./')
+
 from dip_toolbox import NoiseModels, Filters
 
 # importing image and addition of Gaussian noise:

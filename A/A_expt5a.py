@@ -21,6 +21,11 @@ v   :variance
 '''
 # Important imports:
 from matplotlib import pyplot as plt, gridspec as gs
+
+### adding path to dip_toolbox
+import sys
+sys.path.append('./')
+
 from dip_toolbox import NoiseModels
 
 '''a) Addition (Averaging) of noisy images for noise reduction'''
@@ -35,7 +40,7 @@ def gen_noisy_img(img,n,mean,variance):
     noisy_img_list=[]
     nm=NoiseModels()
     for _ in range(n):
-        noisy_img=nm.gaussian_noise(mean,variance,img.shape)
+        noisy_img=nm.gaussian_noise(img.shape,mean,variance)
         noisy_img_list.append(nm.add_noise(noisy_img,img))
     return noisy_img_list
 

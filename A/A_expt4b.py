@@ -12,6 +12,11 @@ After transmission and recieving we shall zoom using nearest neighbourhood inter
 # important imports:
 import pyqrcode
 from matplotlib import pyplot as plt,gridspec as gs
+
+### adding path to dip_toolbox
+import sys
+sys.path.append('./')
+
 from dip_toolbox import Interpolation
 
 # String to be converted to QR code:
