@@ -23,7 +23,7 @@ Tracking about updates in the experiments, can be done by checking out the featu
 ## Making the Best possible use of the repository:
 
 ---
-Download the repository as a zip file, and extract it in a folder on your local system. All the experiments exist in their respective topic folder named as per the topic-wise alphabet **{A,B,C...,}**, the images used are in separate folders **{CH01,CH02,CH03..., extra_images}**, the classes created for special functionalities are stored in separate folder **important_classes**  which are combined for easy access using the python file **diptoolbox**. You will be able to run the experiments directly using their corresponding python files, the final output will be saved in the **input_output** folder. You are encouraged to tweak the values and observe the change, and if you find something new or something strange please do share it at: mailtovigyannveshi@gmail.com
+Download the repository as a zip file, and extract it in a folder on your local system. All the experiments exist in their respective topic folder named as per the topic-wise alphabet **{_A, _B, _C...,}**, the images used are in separate folders **{CH01,CH02,CH03..., extra_images}**, the classes created for special functionalities are stored in separate folder **important_classes**  which are combined for easy access using the python file **diptoolbox**. You will be able to run the experiments directly using their corresponding python files, the final output will be saved in the **input_output** folder. You are encouraged to tweak the values and observe the change, and if you find something new or something strange please do share it at: mailtovigyannveshi@gmail.com
 
 
 ## Experiments Done:
@@ -69,7 +69,7 @@ Download the repository as a zip file, and extract it in a folder on your local 
 | 3. | Handling salt and pepper noise using Contraharmonic mean filters |
 | 4. | Handling Salt & Pepper, Gaussian and Uniform noise 
 |    |a) Using 3*3 Order Statistic filters|
-|    |b) Using 3*3  Max, Min, Midpoint filters 
+|    |b) Using 3*3  Max, Min, Midpoint filters|
 | 5. | Handling combination of additive Uniform noise with Salt & Pepper noise |
 | 6. | Handling Salt & Pepper Noise with probabilities Ps>0.2, Pp>0.2 using Adaptive Median Filter |
 | 7. | Handling Additive Gaussian noise with high variance using Adaptive Local Noise Reduction Filter |
@@ -78,3 +78,6 @@ Download the repository as a zip file, and extract it in a folder on your local 
 | 10.| Direct Inverse and Weiner Filtering |
 |   |   |
 |**D.** | **Filtering in the Frequency Domain**  | 
+|   |   |
+| 1. | Visualizing Aliasing   |
+| 2. | Visualizing the effect of Translation and Rotation in spatial domain and its corresponding frequency spectrum |

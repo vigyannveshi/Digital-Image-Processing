@@ -16,13 +16,14 @@ Methods:
 
 # Important imports
 import numpy as np
-from matplotlib import pyplot as plt
     
 
 class FrequencyDomain:
 
     def __init__(self):
         self.flt_size=lambda img_shape: (2*img_shape[0],2*img_shape[1])
+
+        self.freq_trans=lambda img_shape:np.array([(-1)**(x+y) for x in range(img_shape[0]) for y in range(img_shape[1])]).reshape(img_shape[0],img_shape[1])
 
 
     # Vandermonde matrix
@@ -87,6 +88,7 @@ class FrequencyDomain:
 
         return np.transpose(np.dot(np.transpose(np.dot(XYK,Wct_N)),Wct_M))/(M*N)
 
+
     # Apply Frequency Domain filter
 
     def pad_img(self,img):
@@ -113,8 +115,7 @@ class FrequencyDomain:
         r,c=img.shape
 
         # Step 2: Multiply by (-1)^(x+y) to translate center its transform
-        freq_trans=np.array([(-1)**(x+y) for x in range(r) for y in range(c)]).reshape(r,c)
-        img=img*freq_trans
+        img=img*self.freq_trans((r,c))
 
         # Step 3: Compute the DFT of image F(u,v)
         F=self.dft2(img)
@@ -126,7 +127,7 @@ class FrequencyDomain:
         G=H*F
         
         # Step 6: Obtain the processed image: gp(x,y)={real(=[IDFT(G(u,v))])}*(-1)^(x+y)
-        g=np.real(self.idft2(G))*freq_trans
+        g=np.real(self.idft2(G))*self.freq_trans((r,c))
 
         # Step 7: Return the frequency domain and unpaded spatial domain filtered image
         return (G,self.unpad_img(g))           

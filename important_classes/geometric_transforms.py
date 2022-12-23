@@ -33,6 +33,7 @@ class GeometricTransforms():
         self.shr=lambda sh,sv:np.float32([[1,sh,0],[sv,1,0],[0,0,1]])
 
     def tf(self,img,mat):
+        '''Apply Transformation'''
         r,c=img.shape
         img=np.float32(img)
         return cv.warpAffine(img,mat[0:2,:],(c,r))
