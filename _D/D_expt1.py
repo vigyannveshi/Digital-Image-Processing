@@ -22,7 +22,7 @@ import matplotlib.pyplot as plt
 import matplotlib.gridspec as gs
 import cv2 as cv
 
-### adding path to dip_toolbox
+### appending path to dip_toolbox
 import sys
 sys.path.append('./')
 

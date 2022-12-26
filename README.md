@@ -81,3 +81,4 @@ Download the repository as a zip file, and extract it in a folder on your local 
 |   |   |
 | 1. | Visualizing Aliasing   |
 | 2. | Visualizing the effect of Translation and Rotation in spatial domain and its corresponding frequency spectrum |
+| 3. | Visualizing the importance of Fourier Spectrum and phase angle |

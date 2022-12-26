@@ -12,7 +12,7 @@ Aim: To write a program using Python to visualize the effect of Translation and 
 from matplotlib import pyplot as plt
 import numpy as np
 
-### adding path to dip_toolbox
+### appending path to dip_toolbox
 import sys
 sys.path.append('./')
 
@@ -53,8 +53,8 @@ fig_1_titles=["Original Image", f"Rotated by {angle}°",f"Translated by tx={tx},
 
 fig_1_ttl="Translation and Rotation in spatial domain and its corresponding frequency spectrum "
 
-fig_1_save_ttl="D_expt2_1.jpg"
+fig_1_save_ttl="D_expt2.jpg"
 
 pf.plot(fig_1_imgs,fig_1_titles,1,(2,4),fig_1_ttl,fig_1_save_ttl,fig_pad=2.2)
 
-plt.show()
+pf.show()

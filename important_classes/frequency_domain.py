@@ -1,6 +1,11 @@
 '''
 Frequency Domain:
 
+Attributes:
+    # flt_size          : used to get filter size based on image size, for applying freq flt
+    # freq_trans        : returns a matrix of (-1)^(x+y) of desired size
+    # cps               : combine phase and spectrum, used to combine phase and spectrum
+    # cri               : combine real and imaginary part, used to combine real and imaginary part
 Methods:
     # getW              : returns Vandermonde matrix for order n
     # dft               : used to calculate 1D Discrete Fourier Transform
@@ -24,6 +29,12 @@ class FrequencyDomain:
         self.flt_size=lambda img_shape: (2*img_shape[0],2*img_shape[1])
 
         self.freq_trans=lambda img_shape:np.array([(-1)**(x+y) for x in range(img_shape[0]) for y in range(img_shape[1])]).reshape(img_shape[0],img_shape[1])
+        
+        self.cri =lambda rep,imp: rep+1j*imp
+
+        self.cps = lambda spectrum,phase: np.multiply(spectrum,np.exp(1j*phase))
+
+        self.prod_rc=lambda img_shape:img_shape[0]*img_shape[1]
 
 
     # Vandermonde matrix
@@ -91,15 +102,30 @@ class FrequencyDomain:
 
     # Apply Frequency Domain filter
 
-    def pad_img(self,img):
+    def pad_img(self,img,p_r=None,p_c=None,center=False):
         r,c=img.shape
-        img_pd=np.zeros((2*r,2*c))
-        img_pd[:r,:c]=img
+        if center==True:
+            if p_c!=None and p_r!=None:
+                img_pd=np.zeros((r+p_r,c+p_c))
+                img_pd[int(p_r/2):r,int(p_c/2):c]=img
+        else:
+            if p_c!=None and p_r!=None:
+                img_pd=np.zeros((r+p_r,c+p_c))
+                img_pd[:r,:c]=img
+            else:
+                img_pd=np.zeros((2*r,2*c))
+                img_pd[:r,:c]=img
         return img_pd
     
-    def unpad_img(self,img_pd):
+    def unpad_img(self,img_pd,up_r=None,up_c=None,center=False):
         r,c=img_pd.shape
-        img_unpd=img_pd[:int(r/2),:int(c/2)]
+        if center==True:
+            img_unpd=img_pd[int(up_r/2):r-int(up_r/2),int(up_c/2):c-int(up_c/2)]
+        else:
+            if up_c!=None and up_r!=None:
+                img_unpd=img_pd[:r-up_c,:c-up_c]
+            else:
+                img_unpd=img_pd[:int(r/2),:int(c/2)]
         return img_unpd
 
     def apply_freq_flt(self,img,flt):
