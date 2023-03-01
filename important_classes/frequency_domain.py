@@ -7,7 +7,6 @@ Attributes:
     # cps               : combine phase and spectrum, used to combine phase and spectrum
     # cri               : combine real and imaginary part, used to combine real and imaginary part
 Methods:
-    # getW              : returns Vandermonde matrix for order n
     # dft               : used to calculate 1D Discrete Fourier Transform
     # idft              : used to calculate 1D Inverse Discrete Fourier Transform
     # dftshift          : used to center the 1D DFT
@@ -20,12 +19,17 @@ Methods:
 '''
 
 # Important imports
-import numpy as np
-    
+import numpy as np 
 
-class FrequencyDomain:
+### appending path to dip_toolbox
+import sys
+sys.path.append('important_classes')
+from image_transforms import ImageTransforms
+
+class FrequencyDomain(ImageTransforms):
 
     def __init__(self):
+        super().__init__()
         self.flt_size=lambda img_shape: (2*img_shape[0],2*img_shape[1])
 
         self.freq_trans=lambda img_shape:np.array([(-1)**(x+y) for x in range(img_shape[0]) for y in range(img_shape[1])]).reshape(img_shape[0],img_shape[1])
@@ -37,34 +41,18 @@ class FrequencyDomain:
         self.prod_rc=lambda img_shape:img_shape[0]*img_shape[1]
 
 
-    # Vandermonde matrix
-
-    def getW(self,N):
-        W=np.zeros((N,N),dtype=complex)
-        for n in range(0,N):
-            for k in range(0,N):
-                W[n][k]=np.exp((-2j*np.pi*n*k)/N)
-        return W
-
     # 1D - Discrete Fourier Transform
 
     def dft(self,xn,N=None):
-        if N==None:
-            N=len(xn)
-        else:
-            if len(xn)>=N:
-                xn=xn[:N]
-            else:
-                xn=np.append(xn,np.zeros(N-len(xn)))
-
-        return np.dot(xn,self.getW(N))
+        return self.uni_tf(xn,self.W,N)
 
 
     def idft(self,Xk,N=None):
         if N==None:
-            N=len(Xk)
-        Wct=np.conjugate(np.transpose(self.getW(N)))
-        return np.dot(Xk,Wct)/N
+            return self.inv_uni_tf(Xk,self.W)/len(Xk)
+        else:
+            return self.inv_uni_tf(Xk,self.W)/N
+
 
     def dftshift(self,Xk):
         sXk=np.zeros(Xk.shape,dtype=complex)
@@ -74,30 +62,17 @@ class FrequencyDomain:
     
     # 2D - Discrete Fourier Transform
     def dft2(self,xyn,M=None,N=None):
-        if M==None and N==None:
-            M,N=np.array(xyn).shape
-        if M>N:
-            W_M=self.getW(M)
-            W_N=W_M[0:N,0:N]
-        else:
-            W_N=self.getW(N)
-            W_M=W_N[0:M,0:M]
-        return np.transpose(np.dot(np.transpose(np.dot(xyn,W_N)),W_M))
+        return self.uni_tf2(xyn,self.W,M,N)
+
 
     def dftshift2(self,xyk):
         return np.transpose(self.dftshift(np.transpose(self.dftshift(xyk))))
 
     def idft2(self,XYK,M=None,N=None):
         if M==None and N==None:
-            M,N=np.array(XYK).shape
-        if M>N:
-            Wct_M=np.conjugate(np.transpose(self.getW(M)))
-            Wct_N=Wct_M[0:N,0:N]
+            return self.inv_uni_tf2(XYK,self.W)/(self.prod_rc(XYK.shape))
         else:
-            Wct_N=np.conjugate(np.transpose(self.getW(N)))
-            Wct_M=Wct_N[0:M,0:M]
-
-        return np.transpose(np.dot(np.transpose(np.dot(XYK,Wct_N)),Wct_M))/(M*N)
+            return self.inv_uni_tf2(XYK,self.W)/(M*N)
 
 
     # Apply Frequency Domain filter

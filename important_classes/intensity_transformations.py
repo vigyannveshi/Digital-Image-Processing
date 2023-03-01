@@ -67,29 +67,33 @@ class IntensityTransformations:
         return np.vectorize(ils)
 
 
-    ''' Log Transformations (base:10)'''
-    def log(self,L):
+    ''' Log Transformations (base:n)'''
+    def log(self,L,base=10,max_val=None):
+        if max_val==None:
+            max_val=L
         def lg(r):
-            c=(L-1)/np.log10(L)
-            return c*np.log10(1+r)
+            c=(L-1)/(np.log(max_val)/np.log(base))
+            return c*(np.log(1+r)/np.log(base))
         
         return np.vectorize(lg)
 
 
-    ''' Antilog Transformations (base:10)'''
-    def antilog(self,L,e=0):
+    ''' Antilog Transformations (base:n)'''
+    def antilog(self,L,base=10,e=0,max_val=None):
+        if max_val==None:
+            max_val=L
         def alg(r):
-            c=(np.log10(L))/(L-1+e)
-            return (10**((r+e)*c))-1
-
+            c=(np.log(max_val)/np.log(base))/(L-1+e)
+            return (base**((r+e)*c))-1
         return np.vectorize(alg)
 
 
     ''' Power-Law (Gamma) Transformations'''
-    def gamma(self,q,L,e=0):
+    def gamma(self,q,L,max_val=None,e=0):
+        if max_val==None:
+            max_val=L-1
         def gm(r):
-            c=(L-1)/((L-1+e)**q)
-            # print(c)
+            c=(max_val)/((L-1+e)**q)
             return c*((r+e)**q)
         return np.vectorize(gm)
         

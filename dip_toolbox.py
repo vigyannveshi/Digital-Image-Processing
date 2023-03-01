@@ -14,3 +14,4 @@ from important_classes.frequency_domain import FrequencyDomain
 from important_classes.degradation_models import DegradationModels
 from important_classes.morphological_transformations import MorphologicalTransformations
 from important_classes.plotting import PlottingFunctions
+from important_classes.image_transforms import ImageTransforms

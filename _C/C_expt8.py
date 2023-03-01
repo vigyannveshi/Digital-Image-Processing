@@ -71,19 +71,19 @@ ax14.imshow(img_s_H_lt,cmap='gray',vmax=255,vmin=0)
 
 ax15=plt.subplot(gs1[1,0])
 ax15.axis('off')
-ax15.imshow(it.gamma(0.1,255)(np.abs(img1_f)),cmap='gray')
+ax15.imshow(it.gamma(0.1,255,np.max(np.abs(img1_f)))(np.abs(img1_f)),cmap='gray')
 
 ax16=plt.subplot(gs1[1,1])
 ax16.axis('off')
-ax16.imshow(it.gamma(0.1,255)(np.abs(img_f_H_st)),cmap='gray')
+ax16.imshow(it.gamma(0.1,255,np.max(np.abs(img_f_H_st)))(np.abs(img_f_H_st)),cmap='gray')
 
 ax17=plt.subplot(gs1[1,2])
 ax17.axis('off')
-ax17.imshow(it.gamma(0.1,255)(np.abs(img_f_H_mt)),cmap='gray')
+ax17.imshow(it.gamma(0.1,255,np.max(np.abs(img_f_H_mt)))(np.abs(img_f_H_mt)),cmap='gray')
 
 ax18=plt.subplot(gs1[1,3])
 ax18.axis('off')
-ax18.imshow(it.gamma(0.1,255)(np.abs(img_f_H_lt)),cmap='gray')
+ax18.imshow(it.gamma(0.1,255,np.max(np.abs(img_f_H_lt)))(np.abs(img_f_H_lt)),cmap='gray')
 
 fig1.tight_layout(pad=2.5)
 fig1.set_size_inches(13,8)

@@ -28,22 +28,22 @@ img2=plt.imread('CH03\Fig0309(a)(washed_out_aerial_image).tif')
 L=256
 
 # gm_1 Transformations
-r=np.arange(0,L)
+r1=np.arange(0,np.max(img1))
 gm_1=[2,0.6,0.4,0.3]
 s1=[]
 img_o_1=[]
 for p in gm_1:
-    s1.append(it.gamma(p,L)(r))
-    img_o_1.append(it.gamma(p,L)(img1))
+    s1.append(it.gamma(p,L,np.max(r1))(r1))
+    img_o_1.append(it.gamma(p,L,np.max(img1))(img1))
     
 # gm_2 Transformations
-r=np.arange(0,L)
+r2=np.arange(0,np.max(img2))
 gm_2=[0.2,3.0,4.0,5.0]
 s2=[]
 img_o_2=[]
 for p in gm_2:
-    s2.append(it.gamma(p,L)(r))
-    img_o_2.append(it.gamma(p,L)(img2))
+    s2.append(it.gamma(p,L,np.max(r2))(r2))
+    img_o_2.append(it.gamma(p,L,np.max(img2))(img2))
 
 
 
@@ -59,10 +59,10 @@ ax11.imshow(img1,cmap='gray',vmin=0,vmax=255)
 
 ax12=plt.subplot(gs1[1,0])
 ax12.set_title('Transformation functions')
-ax12.plot(r,s1[0])
-ax12.plot(r,s1[1])
-ax12.plot(r,s1[2])
-ax12.plot(r,s1[3])
+ax12.plot(r1,s1[0])
+ax12.plot(r1,s1[1])
+ax12.plot(r1,s1[2])
+ax12.plot(r1,s1[3])
 ax12.legend(gm_1)
 ax12.set_xlabel('input image intensity (r)')
 ax12.set_ylabel('output image intensity (s)')
@@ -104,10 +104,10 @@ ax21.imshow(img2,cmap='gray',vmin=0,vmax=255)
 
 ax22=plt.subplot(gs2[1,0])
 ax22.set_title('Transformation functions')
-ax22.plot(r,s2[0])
-ax22.plot(r,s2[1])
-ax22.plot(r,s2[2])
-ax22.plot(r,s2[3])
+ax22.plot(r2,s2[0])
+ax22.plot(r2,s2[1])
+ax22.plot(r2,s2[2])
+ax22.plot(r2,s2[3])
 ax22.legend(gm_2)
 ax22.set_xlabel('input image intensity (r)')
 ax22.set_ylabel('output image intensity (s)')

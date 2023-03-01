@@ -61,7 +61,6 @@ sp1_img2p=fd.cps(img1_sp,img2_pa)
 # plotting:
 
 ### figure 1
-
 fig_1_imgs=[img1,it.gamma(0.2,255)(img1_sp/fd.prod_rc(img1.shape)),flt.isc(img1_pa,100),img2,it.gamma(0.2,255)(img2_sp/fd.prod_rc(img2.shape)),flt.isc(img2_pa,100)]
 
 fig_1_titles=["img1", "|IMG1|",r"$\angle$IMG1", "img2", "|IMG2|",r"$\angle$IMG2"]
@@ -82,8 +81,8 @@ fig_2_imgs=[]
 for i in imgs_list:
     fig_2_imgs.append(np.real(fd.idft2(i))*fd.freq_trans(i.shape))
 
-fig_2_imgs[0]=it.gamma(1,255)(flt.isc(fig_2_imgs[0],100)) 
-fig_2_imgs[1]=it.gamma(0.6,255)(flt.isc(fig_2_imgs[1],100)) 
+fig_2_imgs[0]=flt.isc(fig_2_imgs[0],150)
+fig_2_imgs[1]=(flt.isc(fig_2_imgs[1],200)) 
 
 fig_2_titles=[r"$\angle$IMG1 +|1|", r"$\angle$IMG2 +|1|",r"$\angle$IMG1 + |IMG2|", r"$\angle$IMG2 + |IMG1|"]
 

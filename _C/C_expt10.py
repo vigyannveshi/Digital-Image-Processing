@@ -102,15 +102,15 @@ ax13.imshow(img_s_invf,cmap='gray',vmax=255,vmin=0)
 
 ax14=plt.subplot(gs1[1,0])
 ax14.axis('off')
-ax14.imshow(it.gamma(0.1,255)(np.abs(img1_f)),cmap='gray')
+ax14.imshow(it.gamma(0.1,255,np.max(np.abs(img1_f)))(np.abs(img1_f)),cmap='gray')
 
 ax15=plt.subplot(gs1[1,1])
 ax15.axis('off')
-ax15.imshow(it.gamma(0.1,255)(np.abs(img_f_H_st)),cmap='gray')
+ax15.imshow(it.gamma(0.1,255,np.max(np.abs(img_f_H_st)))(np.abs(img_f_H_st)),cmap='gray')
 
 ax16=plt.subplot(gs1[1,2])
 ax16.axis('off')
-ax16.imshow(it.gamma(0.1,255)(np.abs(img_f_invf)),cmap='gray')
+ax16.imshow(it.gamma(0.1,255,np.max(np.abs(img_f_invf)))(np.abs(img_f_invf)),cmap='gray')
 
 fig1.tight_layout(pad=2.5)
 fig1.set_size_inches(13,8)
@@ -139,15 +139,15 @@ ax23.imshow(img_s_invf_b_180,cmap='gray',vmax=255,vmin=0)
 
 ax24=plt.subplot(gs2[1,0])
 ax24.axis('off')
-ax24.imshow(it.gamma(0.1,255)(np.abs(img_f_invf_b_40)),cmap='gray')
+ax24.imshow(it.gamma(0.1,255,np.max(np.abs(img_f_invf_b_40)))(np.abs(img_f_invf_b_40)),cmap='gray')
 
 ax25=plt.subplot(gs2[1,1])
 ax25.axis('off')
-ax25.imshow(it.gamma(0.1,255)(np.abs(img_f_invf_b_150)),cmap='gray')
+ax25.imshow(it.gamma(0.1,255,np.max(np.abs(img_f_invf_b_150)))(np.abs(img_f_invf_b_150)),cmap='gray')
 
 ax26=plt.subplot(gs2[1,2])
 ax26.axis('off')
-ax26.imshow(it.gamma(0.1,255)(np.abs(img_f_invf_b_180)),cmap='gray')
+ax26.imshow(it.gamma(0.1,255,np.max(np.abs(img_f_invf_b_180)))(np.abs(img_f_invf_b_180)),cmap='gray')
 
 fig2.tight_layout(pad=2.5)
 fig2.set_size_inches(13,8)
@@ -175,15 +175,15 @@ ax33.imshow(img_s_wf1,cmap='gray',vmax=255,vmin=0)
 
 ax34=plt.subplot(gs3[1,0])
 ax34.axis('off')
-ax34.imshow(it.gamma(0.1,255)(np.abs(img1_f)),cmap='gray')
+ax34.imshow(it.gamma(0.1,255,np.max((np.abs(img1_f))))(np.abs(img1_f)),cmap='gray')
 
 ax35=plt.subplot(gs3[1,1])
 ax35.axis('off')
-ax35.imshow(it.gamma(0.1,255)(np.abs(img_f_H_st)),cmap='gray')
+ax35.imshow(it.gamma(0.1,255,np.max((np.abs(img_f_H_st))))(np.abs(img_f_H_st)),cmap='gray')
 
 ax36=plt.subplot(gs3[1,2])
 ax36.axis('off')
-ax36.imshow(it.gamma(0.1,255)(np.abs(img_f_wf1)),cmap='gray')
+ax36.imshow(it.gamma(0.1,255,np.max((np.abs(img_f_wf1))))(np.abs(img_f_wf1)),cmap='gray')
 
 fig3.tight_layout(pad=2.5)
 fig3.set_size_inches(13,8)
@@ -211,15 +211,15 @@ ax43.imshow(img_s_wf4,cmap='gray',vmax=255,vmin=0)
 
 ax44=plt.subplot(gs4[1,0])
 ax44.axis('off')
-ax44.imshow(it.gamma(0.1,255)(np.abs(img_f_wf2)),cmap='gray')
+ax44.imshow(it.gamma(0.1,255,np.max(np.abs(img_f_wf2)))(np.abs(img_f_wf2)),cmap='gray')
 
 ax45=plt.subplot(gs4[1,1])
 ax45.axis('off')
-ax45.imshow(it.gamma(0.1,255)(np.abs(img_f_wf3)),cmap='gray')
+ax45.imshow(it.gamma(0.1,255,np.max(np.abs(img_f_wf3)))(np.abs(img_f_wf3)),cmap='gray')
 
 ax46=plt.subplot(gs4[1,2])
 ax46.axis('off')
-ax46.imshow(it.gamma(0.1,255)(np.abs(img_f_wf4)),cmap='gray')
+ax46.imshow(it.gamma(0.1,255,np.max(np.abs(img_f_wf4)))(np.abs(img_f_wf4)),cmap='gray')
 
 fig4.tight_layout(pad=2.5)
 fig4.set_size_inches(13,8)
